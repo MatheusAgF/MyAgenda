@@ -1,13 +1,18 @@
 import customtkinter as ctk
 from PIL import Image
 from datetime import datetime
-import agenda
+import agenda, os
 
 
 app = ctk.CTk(fg_color='#d8d9e6')
 app.geometry('1005x590')
 app.resizable(width=False, height=False)
 app.title('MyAgenda')
+
+def carregar_imagem(titulo:str):
+    caminho = os.path.join('imagens', titulo)
+    imagem = ctk.CTkImage(Image.open(caminho), size=(30,30))
+    return imagem
 
 def erro(texto):
     def fade_out(label, i=0):
@@ -32,7 +37,6 @@ def erro(texto):
     fade_out(mensagem_erro)
 
 
-
 frame = ctk.CTkFrame(
     app,
     width=991,
@@ -49,11 +53,9 @@ text = ctk.CTkLabel(
     font=ctk.CTkFont(slant='italic',size=20, weight='bold'))
 text.place(x=54,y=9.5)
 
-img = ctk.CTkImage(
-    Image.open('icone.png'), size=(30,30))
 inicio = ctk.CTkLabel(
     frame,
-    image=img,
+    image=carregar_imagem('icone.png'),
     text='')
 inicio.place(x=16, y=8)
 
@@ -110,7 +112,7 @@ def frameAdicionar():
         font=ctk.CTkFont(slant='italic',size=14, weight='bold'),
         command=adicionar)
     btn_adicionar.place(x=820,y=8)
-lixeira = ctk.CTkImage(Image.open('lixeira.png'), size=(30,30))
+
 frame_list = None
 def frameLista(comando):
     global frame_list
@@ -196,7 +198,7 @@ def frameLista(comando):
 
         btn_remover = ctk.CTkButton(
             tarefa_frame,
-            image=lixeira,
+            image=carregar_imagem('lixeira.png'),
             bg_color='transparent',
             fg_color='transparent',
             hover_color="#8a8b94",
@@ -309,8 +311,8 @@ def mudarAba():
     aba = tabview.get()
     if aba == 'Done':
         concluidos(['d'])
-    # if aba == 'To-Do':
-    #     frameLista(['l'])
+    if aba == 'To-Do':
+        frameLista(['l'])
 
 
 tabview = ctk.CTkTabview(
