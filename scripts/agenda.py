@@ -1,7 +1,6 @@
-import sys
-import ctypes, sys
-TODO_FILE = 'todo.txt'
-ARCHIVE_FILE = 'done.txt'
+import ctypes, sys, os
+TODO_FILE = os.path.join('dados', 'todo.txt')
+ARCHIVE_FILE = os.path.join('dados', 'done.txt')
 
 RED   = "\033[1;31m"  
 BLUE  = "\033[1;34m"
@@ -49,11 +48,11 @@ def adicionar(descricao, extras):
       fp.close()
     
     except IOError as err:
-      print("Não foi possível escrever para o arquivo" + TODO_FILE)
+      print("Não foi possível escrever para o arquivo todo.txt")
       print(err)
   
   if descricao == " ":
-     print("Não foi possível escrever para o arquivo" + TODO_FILE)
+     print("Não foi possível escrever para o arquivo todo.txt")
 
       
 def prioridadeValida(pri):
